@@ -1,0 +1,126 @@
+
+
+body {
+  background:#c1bdba;
+  font-family:Merriweather;
+  line-height:1.5;
+  margin:0;
+  padding:0;
+}
+
+html, body {
+  height: 100%;
+}
+.container {
+  margin:auto;
+  overflow:hidden;
+  width:90%
+}
+.container #topic{
+  margin-bottom:10px;
+  margin-top:200px;
+}
+
+.centre-div {
+  text-align: center;
+}
+.active {
+  border:1px solid #fff;
+  border-radius:5px;
+  padding:10px 20px
+}
+#header {
+  padding-top: 70px;
+  clear:both;
+  background:url(https://res.cloudinary.com/dcwpgksxc/image/upload/v1535727870/foodd.jpg);
+  background-position:center;
+  background-size:cover;
+  color:#fff;
+  height:600px;
+  text-align:center
+}
+
+#header h1 {
+  /* border-bottom:2px solid #FF8C00; */
+  margin-bottom:10px;
+  margin-top:200px
+}
+
+.btn-signup {
+  background:#4484CE;
+  border:none;
+  border-radius:8px;
+  color:#fff;
+  font-size:1em;
+  font-weight:bold;
+  outline:none;
+  padding:15px 15px;
+  transition:.5s;
+  width:400px
+}
+
+.btn-signup:hover {
+  background:#f28e53;
+  cursor:pointer;
+  transition:.5s
+}
+
+.grid {
+  background: #c1bdba;S;
+  margin-top:50px
+}
+
+.grid img {
+  width:90px
+}
+
+.box {
+  float:left;
+  padding:10px;
+  text-align:center;
+  width:30%
+}
+
+footer {
+  background:#4484CE;
+  background-repeat: no-repeat;
+  background-position: center top;
+  bottom: -20px;
+  color:#fff;
+  font-family:Kavivanar;
+  height:50px; 
+  line-height: 50px;
+  margin-top:50px;
+  position: relative;
+  text-align:center;
+  width: 100%;
+}
+
+@media(max-width: 550px) {
+  .btn-signup {
+    width: 300px;
+  }
+
+  .active {
+    border:none;
+    display:hidden
+  }
+
+  .mob-active {
+    border:1px solid #fff;
+    display:block;
+    padding:10px 20px
+  }
+
+  .box {
+    float:none;
+    text-align:center;
+    width:100%
+  }
+}
+#wooden{
+  background: rgba(68, 35, 65,0.6);
+  margin: 0 auto;
+  width:50%;
+
+}
