@@ -17,6 +17,12 @@
     font-size:22px;
     padding:10px 20px
   }
+  #menu-links-center{
+    color:#fff;
+    display:inline-block;
+    font-family:kavinar;
+    font-size:22px;
+  }
   
   #menu-links-left span {
     margin:0
