@@ -21,9 +21,6 @@ body{
 #header {
     padding-top: 70px;
     clear:both;
-    background-color: #c1bdba;
-    background-position:center;
-    background-size:cover;
     color:rgb(12, 9, 9);
     height:100%;
     text-align:center;
@@ -39,6 +36,8 @@ table{
   th, td{
       text-align: center;
        width: 16.6px;
+       border: solid white;
+       border-width: 5px;
    }
 
    .complete{
