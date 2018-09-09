@@ -30,6 +30,23 @@ export const getAllOrders = (req, res) => {
     price: req.body.price
   });
 };
+
+export const createNewItem = (req, res) => {
+  const order = {
+    productId: req.body.name,
+    price: req.body.price
+  };
+  console.log("order", order);
+
+  globalArrayHolder.push(order);
+  console.log("Array", globalArrayHolder);
+  res.status(201).json({
+    message: "Item  was created",
+    order: globalArrayHolder
+  });
+
+};
+
 //delete item
 export const deleteAnOrder = (req, res) =>{
   let orderId = req.params.Id;
