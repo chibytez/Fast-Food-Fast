@@ -24,3 +24,11 @@ export const getSingleOrders = (req, res) => {
     order: globalArrayplacer
   });
 };
+
+export const cancelAnOrder = (req, res) =>{
+  let orderId = req.params.Id;
+  let currentOrder = globalArrayHolder.filter(e =>e.Id == orderId)[0];
+res.status(200).json({
+  message: "Cancelled order!"
+});
+};
