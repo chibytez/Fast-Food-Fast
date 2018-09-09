@@ -15,3 +15,12 @@ export const placeNewOrder = (req, res) => {
     order: globalArrayPlacer
   });
 };
+
+export const getSingleOrders = (req, res) => {
+  let orderId = req.params.Id;
+  let currentOrder = globalArrayHolder.filter(e=> e.Id == orderId)[0];
+  res.status(200).json({
+    message: "Rice And Chicken",
+    order: globalArrayplacer
+  });
+};
