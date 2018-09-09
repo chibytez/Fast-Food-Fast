@@ -30,8 +30,8 @@ export const getAllOrders = (req, res) => {
     price: req.body.price
   });
 };
-
-export const deleteAnOrder = (req, res) => {
+//delete item
+export const deleteAnOrder = (req, res) =>{
   let orderId = req.params.Id;
   let currentOrder = globalArrayHolder.filter(e =>e.Id == orderId)[0];
 res.status(200).json({
