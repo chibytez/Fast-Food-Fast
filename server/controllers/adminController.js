@@ -21,3 +21,12 @@ export const getAllOrders = (req, res) => {
       order: globalArrayHolder
     });
   };
+
+  export const editAnOrder = (req, res) => {
+    let orderId = req.params.Id;
+    let currentOrder = globalArrayHolder.filter(e => orderId)[0];
+  res.status(200).json({
+    productId: req.body.name,
+    price: req.body.price
+  });
+};
