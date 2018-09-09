@@ -1,7 +1,7 @@
 import express from 'express';
 import { 
 placeNewOrder
- } from  '../controller/userController';
+ } from  '../controllers/userController';
 
 const userRoutes = (app) => {
 
