@@ -1,0 +1,21 @@
+{
+  "name": "fast-food-fast",
+  "version": "1.0.0",
+  "description": "fast food fast app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js --exec babel-node --presets es2015"
+  },
+  "author": "Aniaku Chibuike",
+  "license": "ISC",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "morgan": "^1.9.0",
+    "nodemon": "^1.18.4",
+    "winston": "^3.1.0"
+  }
+}
