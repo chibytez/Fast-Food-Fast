@@ -1,18 +1,27 @@
 import winston from "winston";
 let globalArrayHolder = [{
-    Id:1,
-    ProductId: "Rice And Chicken",
-    Price: 2500
+  id:1,
+  productId: "Rice And Chicken",
+  price: 2500
+},
+{
+id:2,
+productId:'bole and fish',
+price:2000
+},
+{
+id:3,
+productId:'pizza',
+price:3000
 }];
 
 export const getAllOrders = (req, res) => {
-    res.status(200).json({
-      success: true,
-      message: "A list of all the Orders",
-      order: globalArrayHolder
-    });
-  };
-
+res.status(200).json({
+  success: true,
+  message: "A list of all the Orders",
+  order: globalArrayHolder
+});
+};
   export const getSingleOrders = (req, res) => {
     let orderId = req.params.Id;
     let currentOrder = globalArrayHolder.filter(e=> e.Id == orderId)[0];
