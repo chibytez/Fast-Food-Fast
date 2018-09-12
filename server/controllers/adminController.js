@@ -72,10 +72,15 @@ export const editAnOrder = (req, res) => {
 
 
 //delete item
-export const deleteAnOrder = (req, res) =>{
-  let orderId = req.params.Id;
-  let currentOrder = globalArrayHolder.filter(e =>e.Id == orderId)[0];
+export const deleteAnOrder = (req, res) => {
+  let id = parseInt(req.params.id);
+  let currentOrder = globalArrayHolder.filter(e =>e.id === id)[0];
+if(!currentOrder){
+return res.sendStatus(404);
+}else{
+globalArrayHolder = globalArrayHolder.filter(e =>e.id !== id);
 res.status(200).json({
-  message: "deleted order!"
+  message: "deleted product!"
 });
+};
 };
