@@ -1,20 +1,31 @@
 import winston from 'winston';
-let globalArrayPlacer = [];
 
-export const placeNewOrder = (req, res) => {
-  const order = {
-    productId: req.body.name,
-    price: req.body.price
-  };
-  console.log("order", order);
+let globalArrayPlacer = [
+  {
+    id:1,
+    name:'rice and Chicken',
+    price:4000
+  },
+  {
+    id:2,
+    name:'bole and fish',
+    price:2000
+  },
+  {
+    id:3,
+    name:'pizza',
+    price:3000
+  }
+];
 
-  globalArrayHolder.push(order);
-  console.log("Array", globalArrayPlacer);
-  res.status(201).json({
-    message: "order was created",
+export const getAllOrders = (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "A list of all the Orders",
     order: globalArrayPlacer
   });
 };
+
 
 export const getSingleOrders = (req, res) => {
   let orderId = req.params.Id;
