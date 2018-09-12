@@ -52,13 +52,21 @@ export const createNewOrder = (req, res) => {
 
 };
 
-  export const editAnOrder = (req, res) => {
-    let orderId = req.params.Id;
-    let currentOrder = globalArrayHolder.filter(e => orderId)[0];
-  res.status(200).json({
-    productId: req.body.name,
-    price: req.body.price
-  });
+export const editAnOrder = (req, res) => {
+  let id = parseInt(req.params.id);
+  let currentOrder = globalArrayHolder.filter(e => e.id === id)[0];
+  if(!currentOrder){
+    let  order = req.body;
+    order.id = id;
+    globalArrayHolder.push(order);
+    res.setHeader('Location', '/globalArrayHolder'/ + id);
+    res.sendStatus(201);
+  }else{
+    currentOrder =  res.status(200).json({
+  productId:req.body.productId,
+  price:req.body.price
+});
+};
 };
 
 
