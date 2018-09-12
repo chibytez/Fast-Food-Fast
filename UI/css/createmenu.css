@@ -31,23 +31,36 @@ body{
 table{
    
      width: 100%;
+     font-style: oblique;
+     background-color: white;
    }
 
   th, td{
       text-align: center;
        width: 16.6px;
-       border: solid white;
-       border-width: 5px;
+       border: 1px solid rgb(156, 146, 146);
+   }
+   th{
+       background-color: rgb(224, 218, 206);
    }
 
-   .complete{
-        background-color: green;
+
+   .delivered{
+       background-color: rgb(25, 59, 25);
+       width: contain;
+   }
+   .accept{
+       background-color: rgb(62, 104, 139);
+
+   }
+   .decline{
+       background-color: rgb(35, 70, 122);
    }
    .delete{
-       color: red;
+       background-color: rgb(112, 32, 26);
    }
    .edit{
-       color: blue;
+       background-color: rgb(138, 129, 218);
    }
 
 #center{
@@ -71,3 +84,19 @@ footer {
     text-align:center;
     width: 100%;
    }
+
+.modal{
+    display: none;
+    position: fixed;
+    width:50%;
+    height: 50%;
+    overflow:auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+
+#myBtn{
+    display: flex;
+   margin-left: 0px ;
+}

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Menu</title>
+    <title>Admin</title>
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/createmenu.css">
 </head>
@@ -39,31 +39,31 @@
                             <div class="container">
                     <div class="tab">
 
-    <p><h2 div id="item">Available Food Items</h2></p>                
+    <p><h2 div id="item">List Of Food Orders</h2></p>                
         <table>
     <tr id="row">
         <th>list of Foods</th>
         <th>price(naira)</th>
-        <th>Weight</th>
-        <th>Edit</th>
-        <th>Delete </th>
+        <th>Users Email</th>
+        <th>Options</th>
+        <th>Status</th>
        
     </tr>
     <tr>
     <td>Chicken</td>
     <td>2,000</td>
-    <td>1 gram</td>
-    <td><button class="edit">Edit</button></td>
-    <td><button class="delete">Delete</button></td>
+    <td>aniakuchibuike@gmail.com</td>
+    <td><button class="accept">Accept</button><button class="decline">Decline</button></td>
+    <td><button class="delivered">Delivered</button></td>
   
 </tr>
 
     <tr>
         <td>Pizza</td>
         <td>5,000</td>
-        <td>1 gram</td>
-    <td><button class="edit">Edit</button></td>
-    <td><button class="delete">Delete</button></td>
+        <td>markangle@gmail.com</td>
+    <td><button class="accept">Accept</button><button class="decline">decline</button></td>
+    <td><button class="delivered">Delivered</button></td>
    
     </tr>
 
@@ -72,18 +72,83 @@
 </table>
 </div>
 
-<p><h2 id="center">Pending Order</h2></p>
+<hr>
+<p><h2 id="center">List of Food Items</h2></p>
+
+<div class="tab">
+        <button id="myBtn">Add Item</button>
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+        
+                
+                              <h2>Add a new food Item</h2><hr/>
+                       
+                              <form id="form_id" method="post" name="myform">
+                                <label>Food Item :</label>
+                                <input type="text" name="Food Item" id="fooditem" placeholder="food item"/></br>
+                       
+                                <label>Price(Naira) :</label>
+                                <input type="text" name="" id="price" placeholder="Add price"/></br>
+                       
+                               <a href="createMenu.html"><input type="button" value="Add" id="Add"  /> </a> 
+                             
+                              </form>
+                            
+
+            </div>
+        </div>
 <table>
     <tr>
-<th>User's Name</th>
-<th>Product</th>
-<th>Delivered</th>
+<th>FOOD</th>
+<th>Price(Naira)</th>
+<th>Edit</th>
+<th>Delete</th>
     </tr>
 
-    <tr></tr>
-    <tr></tr>
-</table>
+    <tr>
+<td>Fried Rice And Chicken</td>
+<td>5000</td>
+<td><button class="edit">Edit</button></td>
+<td><button class="delete">Delete</button></td>
+    </tr>
 
+    <tr>
+<td>Bole And Fish</td>
+<td>2500</td>
+<td><button class="edit">Edit</button></td>
+<td><button class="delete">Delete</button></td>
+    </tr>
+
+    <tr>
+<td>Egusi And Semo</td>
+<td>4500</td>
+<td><button class="edit">Edit</button></td>
+<td><button class="delete">Delete</button></td>
+    </tr>
+
+    <tr>
+        <td>Pizza</td>
+        <td>3500</td>
+        <td><button class="edit">Edit</button></td>
+        <td><button class="delete">Delete</button></td>
+    </tr>
+
+    <tr>
+        <td>fruits</td>
+        <td>2000</td>
+        <td><button class="edit">Edit</button></td>
+        <td><button class="delete">Delete</button></td>
+    </tr>
+
+    <tr>
+        <td>pepsi</td>
+        <td>500</td>
+        <td><button class="edit">Edit</button></td>
+        <td><button class="delete">Delete</button></td>
+
+    </tr>
+</table> 
+</div>
 </header>
 </div>
 <footer>
