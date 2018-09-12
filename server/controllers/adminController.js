@@ -22,14 +22,18 @@ res.status(200).json({
   order: globalArrayHolder
 });
 };
-  export const getSingleOrders = (req, res) => {
-    let orderId = req.params.Id;
-    let currentOrder = globalArrayHolder.filter(e=> e.Id == orderId)[0];
-    res.status(200).json({
-      message: "Rice And Chicken",
-      order: globalArrayHolder
-    });
-  };
+
+export const getSingleOrders = (req, res) => {
+  let id = parseInt(req.params.id);
+  let currentOrder = globalArrayHolder.filter(e=> e.id == id)[0];
+if (!currentOrder){
+  res.status(404);
+}else{
+  res.status(200).json({
+    order:currentOrder
+  });
+};
+};
 
   export const editAnOrder = (req, res) => {
     let orderId = req.params.Id;
