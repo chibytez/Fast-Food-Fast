@@ -35,6 +35,23 @@ if (!currentOrder){
 };
 };
 
+export const createNewOrder = (req, res) => {
+  const order = {
+    id:req.body.id,
+    productId: req.body.productId,
+    price: req.body.price
+  };
+  console.log("order", order);
+
+  globalArrayHolder.push(order);
+  console.log("Array", globalArrayHolder);
+  res.status(201).json({
+    message: "order was created",
+    order: globalArrayHolder
+  });
+
+};
+
   export const editAnOrder = (req, res) => {
     let orderId = req.params.Id;
     let currentOrder = globalArrayHolder.filter(e => orderId)[0];
@@ -44,21 +61,7 @@ if (!currentOrder){
   });
 };
 
-export const createNewItem = (req, res) => {
-  const order = {
-    productId: req.body.name,
-    price: req.body.price
-  };
-  console.log("order", order);
 
-  globalArrayHolder.push(order);
-  console.log("Array", globalArrayHolder);
-  res.status(201).json({
-    message: "Item  was created",
-    order: globalArrayHolder
-  });
-
-};
 
 //delete item
 export const deleteAnOrder = (req, res) =>{
