@@ -132,4 +132,6 @@ html,body{
     text-align:center;
     width: 100%;
   }
-  
+  #Add{
+    width:80px;
+  }
