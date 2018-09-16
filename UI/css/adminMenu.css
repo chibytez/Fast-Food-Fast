@@ -1,0 +1,86 @@
+body{
+    background-color: #c1bdba;
+    height: 100%;
+    margin:0;
+    padding:0;
+}
+
+
+#menu-items{
+    width:80% ;
+    border:1px solid black;
+    height: 30%;
+}
+.tab{
+    width:80%;
+    margin-top: 50px;
+    margin-left:auto;
+    margin-right: auto;
+}
+#header {
+    padding-top: 70px;
+    clear:both;
+    background-position:center;
+    background-size:cover;
+    color:rgb(22, 18, 18);
+    height:600px;
+    text-align:center
+  }
+
+table{
+   
+     width: 100%;
+     font-style: oblique;
+     background-color: white;
+   }
+
+  th, td{
+      text-align: center;
+       width: 16.6px;
+       border: 1px solid rgb(156, 146, 146);
+   }
+   th{
+       background-color: rgb(224, 218, 206);
+   }
+
+
+   .delivered{
+       background-color: rgb(25, 59, 25);
+       width: contain;
+   }
+   .accept{
+       background-color: rgb(62, 104, 139);
+
+   }
+   .decline{
+       background-color: rgb(35, 70, 122);
+   }
+   .delete{
+       background-color: rgb(112, 32, 26);
+   }
+   .edit{
+       background-color: rgb(7, 94, 126);
+   }
+
+#center{
+    text-align: center;
+}
+
+#item{
+    text-align: center;
+}
+footer {
+    background:#4484CE;
+    background-repeat: no-repeat;
+    background-position: center top;
+    bottom: -20px;
+    color:#fff;
+    font-family:Kavivanar;
+    height:50px; 
+    line-height: 50px;
+    margin-top:50px;
+    position: fixed;
+    text-align:center;
+    width: 100%;
+    padding-bottom: 0;
+   }
