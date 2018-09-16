@@ -39,6 +39,24 @@ if (!currentOrder){
 };
 };
 
+export const makeAnOrder = (req, res) => {
+  const order = {
+    id:req.body.id,
+    productId: req.body.productId,
+    price: req.body.price
+  };
+  console.log("order", order);
+
+  globalArrayPlacer.push(order);
+  console.log("Array", globalArrayPlacer);
+  res.status(201).json({
+    message: "order was created",
+    order: globalArrayPlacer
+  });
+
+};
+
+
 export const cancelAnOrder = (req, res) => {
   let id = parseInt(req.params.id);
   let currentOrder = globalArrayPlacer.filter(e =>e.id === id)[0];
