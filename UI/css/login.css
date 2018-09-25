@@ -1,13 +1,13 @@
 html,body{
     margin:0;
     padding:0;
-    background-color: #c1bdba;
+    background-color: #ffffff;
 }
 .blue{
     display: flex;
     text-align: center;
     justify-content: center; 
-    background-color: #c1bdba;
+    background-color: #ffffff;
     height: 100%;
 }
 
@@ -52,13 +52,13 @@ input[type=text],input[type=password]{
  margin-bottom: 25px;
  margin-top: 5px;
  border: 2px solid #ccc;
- color: #4f4f4f;
+ color: #080808;
  font-size: 16px;
  border-radius: 5px;
 }
 
 label{
- color: #464646;
+ color: #0e0c0c;
  text-shadow: 0 1px 0 #fff;
  font-size: 14px;
  font-weight: bold;
@@ -70,7 +70,7 @@ button{
  font-size: 16px;
  background-color: #4484CE;
  border: 1px solid #f7f4ee;
- color: #4E4D4B;
+ color: rgb(0, 0, 0);
  font-weight: bold;
  cursor: pointer;
  width: 100%;
@@ -80,21 +80,25 @@ button{
 }
  
 button:hover{
- background-color: rgb(157, 196, 240);
+ background-color: rgb(96, 141, 192);
 }
 
 footer {
-    background:#4484CE;
-    background-repeat: no-repeat;
-    background-position: center top;
-    bottom: -20px;
-    color:#fff;
-    font-family:Kavivanar;
-    height:50px; 
-    line-height: 50px;
-    margin-top:50px;
-    position: relative;
-    text-align:center;
-    width: 100%;
-}
+        background:#4484CE;
+        background-repeat: no-repeat;
+        background-position: center top;
+        color:rgb(14, 13, 13);
+        font-family:Kavivanar; 
+        line-height: 50px;
+        margin:0 auto;
+        position: fixed;
+        text-align:center;
+        bottom: 0;
+        left: 0;
+        bottom: 0;
+        height: 50px;
+        width: 100%;
+        overflow: hidden;
+       }
+    
 
