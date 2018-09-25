@@ -1,7 +1,7 @@
 
 
 body {
-  background:#c1bdba;
+  background:#ffffff;
   font-family:Merriweather;
   line-height:1.5;
   margin:0;
@@ -35,8 +35,8 @@ html, body {
   background:url(https://res.cloudinary.com/dcwpgksxc/image/upload/v1535727870/foodd.jpg);
   background-position:center;
   background-size:cover;
-  color:#fff;
-  height:600px;
+  color:rgb(8, 8, 8);
+  height:100%;
   text-align:center
 }
 
@@ -60,13 +60,13 @@ html, body {
 }
 
 .btn-signup:hover {
-  background:#f28e53;
+  background:#3a75c2;
   cursor:pointer;
   transition:.5s
 }
 
 .grid {
-  background: #c1bdba;S;
+  background: #ffffff;
   margin-top:50px
 }
 
@@ -119,7 +119,7 @@ footer {
   }
 }
 #wooden{
-  background: rgba(68, 35, 65,0.6);
+  background: rgba(112, 74, 97, 0.6);
   margin: 0 auto;
   width:50%;
 
