@@ -6,19 +6,19 @@
   }
   
   .menu-links a {
-    color:#fff;
+    color:rgb(2, 1, 1);
     text-decoration:none
   }
   
   #menu-links-left {
-    color:#fff;
+    color:rgb(3, 3, 3);
     display:inline-block;
     font-family:Kavivanar;
     font-size:22px;
     padding:10px 20px
   }
   #menu-links-center{
-    color:#fff;
+    color:rgb(7, 4, 4);
     display:inline-block;
     font-family:kavinar;
     font-size:22px;
@@ -35,7 +35,7 @@
   }
   
   .menu-links > .menu-links-right > a {
-    color:#fff;
+    color:rgb(7, 6, 6);
     display:inline-block;
     font-size:.9em;
     margin-top:5px;
