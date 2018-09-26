@@ -1,6 +1,6 @@
-body{
+html,body{
     height: 100%;
-    background-color: #c1bdba;
+    background-color: #ffffff;
     background-attachment: fixed;
     margin: 0;
     padding: 0;
@@ -9,19 +9,19 @@ body{
  #header {
     padding-top: 70px;
     clear:both;
-    background-color: #c1bdba;
+    background-color: #ffffff;
     background-position:center;
     background-size:cover;
     color:rgb(12, 9, 9);
     height:100%;
     text-align:center;
     margin-bottom: 0;
-    padding-bottom: 0;
+    padding-bottom: 60px;
   } 
 
   .blue{
    
-    background-color: #c1bdba;
+    background-color: #ffffff;
     height: 100%;
     background-size:cover;
 }
@@ -38,38 +38,30 @@ body{
     margin-right: auto;
 }
 
-table{
-   margin-left: 0px;
-     width: 65%;
-     font-display:block; 
-     }
-
-  /* th, td{
-      text-align: center;
-       width: 16.6px;
-   } */
-
-   #horizontal{
-     border-style: solid;  
-   }
-   .complete{
-    background-color: green;
-   }
 
   
 
    .square{
-    width:30%;
+    width:35%;
     font-size: 16px; 
     display: inline-block;
     margin-bottom: 8px;
     width: calc(50% - 4px);
     margin-right: 8px;
-    /* padding-bottom:30%; */
-     /* float:left; */
-    /* margin:1.66%;
-    border-radius: 15%;  */
+    font-weight: 900;
+  
    }
+
+   button{
+     background-color: #fffafa;
+   }
+
+   button:hover {
+    background:#e9ecf1;
+    cursor:pointer;
+    transition:.5s
+  }
+  
 
     .square:nth-of-type(2n) {
         margin-right: 0;
@@ -88,7 +80,7 @@ table{
           margin-right: 0;
         }
       }
-  }
+    }
   #container{
     font-size: 0;
   }
@@ -96,14 +88,16 @@ table{
     background:#4484CE;
     background-repeat: no-repeat;
     background-position: center top;
-    bottom: -20px;
-    color:#fff;
-    font-family:Kavivanar;
-    height:50px; 
+    color:rgb(14, 13, 13);
+    font-family:Kavivanar; 
     line-height: 50px;
-    margin-top:50px;
-    position: relative;
+    margin:0 auto;
+    position: fixed;
     text-align:center;
+    bottom: 0;
+    left: 0;
+    bottom: 0;
+    height: 50px;
     width: 100%;
-    padding-bottom: 0;
+    overflow: hidden;
    }
