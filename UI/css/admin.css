@@ -80,19 +80,19 @@ table{
    }
 
    .delivered{
-       background-color: rgb(4, 107, 4);
+       background-color: rgb(53, 146, 53);
        width: contain;
        border: 2px;
        border-radius: 50px;
    }
    .accept{
-       background-color: rgb(62, 104, 139);
+       background-color: rgb(97, 165, 221);
        border: 2px ;
        border-radius: 30px;
 
    }
    .decline{
-       background-color: rgb(122, 18, 18);
+       background-color: rgb(206, 24, 24);
        border: 2px ;
        border-radius: 30px;
    }
