@@ -31,7 +31,8 @@ div.container{
     text-align: center;
     justify-content: center; 
  height: auto;
- margin:35px auto;
+ margin-top:8%;
+ /* margin:35px auto; */
  font-family: 'Raleway', sans-serif;
 }
  
