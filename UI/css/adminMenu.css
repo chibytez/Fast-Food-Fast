@@ -1,5 +1,5 @@
 body{
-    background-color: #c1bdba;
+    background-color: #ffffff;
     height: 100%;
     margin:0;
     padding:0;
@@ -11,12 +11,17 @@ body{
     border:1px solid black;
     height: 30%;
 }
+#myBtn{
+    border: 2px solid black;
+    border-radius: 50px;
+}
+
 .tab{
     width:80%;
     margin-top: 50px;
     margin-left:auto;
     margin-right: auto;
-}
+} 
 #header {
     padding-top: 70px;
     clear:both;
@@ -29,18 +34,37 @@ body{
 
 table{
    
-     width: 100%;
-     font-style: oblique;
-     background-color: white;
+    width: 100%;
+    text-align: center;
+    background-color: rgb(230, 238, 240);
+    margin: 10px 0 15px;
+    padding: 10px;
+    border-bottom: 1px solid #d8bfd8;
    }
 
-  th, td{
+     td{
       text-align: center;
-       width: 16.6px;
-       border: 1px solid rgb(156, 146, 146);
+      height: 40px;
+       /* width: 16.6px; */
+       
    }
+
+   th,tr{
+    padding: 5px 0 5px;
+   }
+   th, td {
+    border-bottom: 1px solid #ddd;
+}
    th{
+    border-bottom: 1px solid #d8bfd8;
+    padding: 5px 5px 5px 0;
+    background: #eeeeee;
+    height: 40px;
+    /* text-align: center;
+    width: 16.6px;
+    border: 1px solid rgb(156, 146, 146);
        background-color: rgb(224, 218, 206);
+        */
    }
 
 
@@ -56,11 +80,40 @@ table{
        background-color: rgb(35, 70, 122);
    }
    .delete{
-       background-color: rgb(112, 32, 26);
+       background-color: rgb(121, 40, 34);
+       border: 2px solid black;
+       border-radius: 50px;
    }
    .edit{
        background-color: rgb(7, 94, 126);
+       border: 2px solid black;
+       border-radius: 50px;
    }
+   .pagination li {
+    display: block;
+    float: left;
+    margin: 10px 0;
+    padding: 2px 8px;
+    border: 1px solid #363851;
+}
+
+.pagination li:first-child {
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.pagination li:last-child {
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.pagination li.active {
+    background: #363851 !important;
+}
+
+.pagination li.active a {
+    color: #fff;
+}
 
 #center{
     text-align: center;
