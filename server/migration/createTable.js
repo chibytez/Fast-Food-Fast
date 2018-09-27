@@ -8,7 +8,7 @@ db.query('CREATE TABLE IF NOT EXISTS users(id SERIAL PRIMARY KEY,fullName VARCHA
 });
 
 
-db.query('CREATE TABLE IF NOT EXISTS foodItems(id SERIAL PRIMARY KEY NOT NULL, food_Name VARCHAR(40) NOT NULL , image BYTEA, price INTEGER, date timestamp without time zone)', (err, res) => {
+db.query('CREATE TABLE IF NOT EXISTS orders(id SERIAL PRIMARY KEY NOT NULL, food_Name VARCHAR(40) NOT NULL , image BYTEA, price INTEGER, date timestamp without time zone)', (err, res) => {
   if (err) {
     return err;
   }

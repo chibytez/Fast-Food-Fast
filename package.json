@@ -6,7 +6,14 @@
   "scripts": {
     "test": " nyc --reporter=text --reporter=lcov mocha ./server/test/**.spec.js --require babel-register --exit",
     "start": "npm run migration && nodemon app.js --exec babel-node --presets es2015",
-    "migration": "babel-node server/migration/createTable",
+    "createTable": " node -r babel-register server/migration/createTable.js",
+    "dropTable": " node -r babel-register server/migration/dropTable.js",
+    "userSeed": " node -r babel-register server/migration/user.seed.js",
+    "adminSeed": " node -r babel-register server/migration/admin.seed.js",
+    "migration": "npm run dropTable && npm run createTable",
+    "seeder": "npm run userSeed && npm run adminSeed",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "pretest": "npm run migration && npm run seeder",
     "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix"
   },
