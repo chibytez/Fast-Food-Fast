@@ -14,6 +14,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 router(app);
 app.listen(port);
+
 winston.log('info', `App is listening on port ${port}`);
 
 // app.use((req ,res ,next) => {
