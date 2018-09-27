@@ -1,5 +1,5 @@
 body {
-    background:#c1bdba;
+    background:#ffffff;
     font-family:Merriweather;
     margin:0;
     padding:0;
@@ -7,6 +7,7 @@ body {
   
   html, body {
     height: 100%;
+    color: #fff;
   }
 
   #header {
@@ -14,7 +15,7 @@ body {
     clear:both;
     background-position:center;
     background-size:cover;
-    color:#fff;
+    color:rgb(12, 12, 12);
     height:600px;
     text-align:center
   }
@@ -29,14 +30,18 @@ body {
     background:#4484CE;
     background-repeat: no-repeat;
     background-position: center top;
-    bottom: -20px;
-    color:#fff;
-    font-family:Kavivanar;
-    height:50px; 
+    color:rgb(14, 13, 13);
+    font-family:Kavivanar; 
     line-height: 50px;
-    margin-top:50px;
-    position: relative;
+    margin:0 auto;
+    position: fixed;
     text-align:center;
+    bottom: 0;
+    left: 0;
+    bottom: 0;
+    height: 50px;
     width: 100%;
+    overflow: hidden;
    }
+
   
