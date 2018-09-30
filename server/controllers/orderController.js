@@ -55,3 +55,27 @@ export const getAllMeals = (req, res) => {
   };
   dbResults(sql, res);
 };
+
+export const cancelAnOrder = (req, res) => {
+  const id = parseInt(req.params.orderId, 10);
+  db.query('SELECT status FROM orders WHERE id=$1', [id], (err, response) => {
+    if (restriction(response)) {
+      return res.status(409)
+        .json({
+          error: 'order already approved',
+        });
+    }
+    db.query('Cancel FROM orders WHERE id=$1', [id], (err, result) => {
+      if (result.rowCount === 0) {
+        return res.status(404)
+          .json({
+            message: 'order Not found',
+          });
+      }
+      res.status(200)
+        .json({
+          message: 'order cancelled successfully',
+        });
+    });
+  });
+};
