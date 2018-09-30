@@ -22,6 +22,7 @@ export const placeOrder = (req, res) => {
         ' VALUES($1, $2, $3, NOW() ,$4, $5, $6)',
         values: [userId, result.rows[0].name, result.rows[0].email,
           0, meal, price],
+      };
         db.query(createOrderQuery, (err, result) => {
     };
         res.status(201)
@@ -38,24 +39,33 @@ export const placeOrder = (req, res) => {
   });
 };
 
-export const getSingleOrder = (req, res) => {
+export const getAllUserOrders = (req, res) => {
   const userId = req.userInfo.id;
-  const id = parseInt(req.params.orderId, 10);
-  const singleSelectQuery = {
-    text: 'SELECT * FROM orders WHERE id=$1 AND user_id=$2 ORDER BY id ASC',
-    values: [id, userId],
+  const sql = {
+    text: 'SELECT * FROM orders WHERE user_id=$1 ORDER BY id ASC',
+    values: [userId],
   };
-  db.query(singleSelectQuery, (err, result) => {
-    if (result.rows.length > 0) {
-      return res.status(200)
-        .json({
-          result: result.rows,
-        });
-    }
-    res.status(404)
-      .json({
-        message: 'order not found',
-      });
-  });
+  dbResults(sql, req.userInfo, res);
 };
+
+// export const getSingleOrder = (req, res) => {
+//   const userId = req.userInfo.id;
+//   const id = parseInt(req.params.orderId, 10);
+//   const singleSelectQuery = {
+//     text: 'SELECT * FROM orders WHERE id=$1 AND user_id=$2 ORDER BY id ASC',
+//     values: [id, userId],
+//   };
+//   db.query(singleSelectQuery, (err, result) => {
+//     if (result.rows.length > 0) {
+//       return res.status(200)
+//         .json({
+//           result: result.rows,
+//         });
+//     }
+//     res.status(404)
+//       .json({
+//         message: 'order not found',
+//       });
+//   });
+// };
 
