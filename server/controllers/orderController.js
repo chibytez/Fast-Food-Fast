@@ -48,24 +48,10 @@ export const getAllUserOrders = (req, res) => {
   dbResults(sql, req.userInfo, res);
 };
 
-// export const getSingleOrder = (req, res) => {
-//   const userId = req.userInfo.id;
-//   const id = parseInt(req.params.orderId, 10);
-//   const singleSelectQuery = {
-//     text: 'SELECT * FROM orders WHERE id=$1 AND user_id=$2 ORDER BY id ASC',
-//     values: [id, userId],
-//   };
-//   db.query(singleSelectQuery, (err, result) => {
-//     if (result.rows.length > 0) {
-//       return res.status(200)
-//         .json({
-//           result: result.rows,
-//         });
-//     }
-//     res.status(404)
-//       .json({
-//         message: 'order not found',
-//       });
-//   });
-// };
-
+export const getAllMeals = (req, res) => {
+  const sql = {
+    text: 'SELECT * FROM meals',
+    values: [meals],
+  };
+  dbResults(sql, res);
+};
