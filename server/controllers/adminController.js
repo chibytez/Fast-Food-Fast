@@ -1,6 +1,7 @@
 import { dbResults } from '../helper/utilities';
 
 import db from '../models/database';
+import { dbResults, restriction } from '../helper/utilities';
 
 export const getAllOrders = (req, res) => {
   const sql = {
@@ -48,7 +49,7 @@ export const addMealMenu = (req, res) => {
     text: 'INSERT INTO meals(id, meal, price) VALUES($1, $2, $3) RETURNING id,meal , price',
     values: [id, meal, price],
   };
-  db.query(sql)
+  db.sql(sql)
     .then((meals) => {
       res.status(201).json({
         success: true,
@@ -57,4 +58,28 @@ export const addMealMenu = (req, res) => {
       });
     }).catch(error => res.status(500).json({ message: error.message }));
   dbResults(sql, req.userInfo, res);
+};
+
+export const deleteMeal = (req, res) => {
+  const id = parseInt(req.params.mealId, 10);
+  db.query('SELECT status FROM meals WHERE id=$1', [id], (err, response) => {
+    if (restriction(response)) {
+      return res.status(409)
+        .json({
+          error: 'Request already approved',
+        });
+    }
+    db.query('DELETE FROM meals WHERE id=$1', [id], (err, result) => {
+      if (result.rowCount === 0) {
+        return res.status(404)
+          .json({
+            message: 'meal Not found',
+          });
+      }
+      res.status(200)
+        .json({
+          message: 'meal deleted successfully',
+        });
+    });
+  });
 };
