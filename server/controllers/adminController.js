@@ -1,5 +1,7 @@
 import { dbResults } from '../helper/utilities';
 
+import db from '../models/database';
+
 export const getAllOrders = (req, res) => {
   const sql = {
     text: 'SELECT * FROM orders ORDER BY date DESC',
@@ -14,7 +16,6 @@ export const getSpecificOrder = (req, res) => {
     values: [id],
   };
   dbResults(sql, req.userInfo, res);
-
 };
 
 export const updateOrderStatus = (req, res) => {
@@ -38,5 +39,22 @@ export const updateOrderStatus = (req, res) => {
       sql = `UPDATE orders SET status=${0} WHERE id=${id} RETURNING *`;
       break;
   }
+  dbResults(sql, req.userInfo, res);
+};
+
+export const addMealMenu = (req, res) => {
+  const { id, meal, price } = req.body;
+  const sql = {
+    text: 'INSERT INTO meals(id, meal, price) VALUES($1, $2, $3) RETURNING id,meal , price',
+    values: [id, meal, price],
+  };
+  db.query(sql)
+    .then((meals) => {
+      res.status(201).json({
+        success: true,
+        message: 'meal Successfully added',
+        meals: meals.rows,
+      });
+    }).catch(error => res.status(500).json({ message: error.message }));
   dbResults(sql, req.userInfo, res);
 };
