@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": " nyc --reporter=text --reporter=lcov mocha ./server/test/**.spec.js --require babel-register --exit",
-    "start": "npm run migration && nodemon app.js --exec babel-node --presets es2015",
+    "start": "nodemon app.js --exec babel-node --presets es2015",
     "createTable": " node -r babel-register server/migration/createTable.js",
     "dropTable": " node -r babel-register server/migration/dropTable.js",
     "userSeed": " node -r babel-register server/migration/user.seed.js",
@@ -22,6 +22,7 @@
   "dependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.3",
     "chai": "^4.1.2",
     "chai-http": "^4.2.0",
