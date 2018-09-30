@@ -1,6 +1,6 @@
 export const orderValidation = {
   meal: 'required|min:4',
-  order: 'required|min:10|max:200',
+  price: 'number |required',
 };
 export const signUpValidation = {
   name: 'required|min:4',
