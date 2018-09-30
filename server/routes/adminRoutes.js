@@ -1,11 +1,13 @@
 import {
-  getAllOrders,
   getSingleOrders,
   editAnOrder,
   deleteAnOrder,
   createNewOrder,
-
 } from '../controllers/adminController';
+
+import {
+  getAllOrders,  
+} from  '../controllers/adminController';
 import validate from '../helper/validateAdmin';
 
 
