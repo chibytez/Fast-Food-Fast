@@ -12,7 +12,7 @@ db.query(user, (err, res) => {
     return err;
   }
   const order = {
-    text: 'INSERT INTO orders(user_id, users_name, users_email, date, status, item, price) VALUES($1, $2, $3, NOW() ,$4, $5, $6) RETURNING id',
+    text: 'INSERT INTO orders(user_id, users_name, users_email, date, status, meal, price) VALUES($1, $2, $3, NOW() ,$4, $5, $6) RETURNING id',
     values: [res.rows[0].id, 'example', 'example@gmail.com', 'pending', 'fried rice and chicken ', '#5000'],
   };
   db.query(order, (err, res) => {
@@ -20,7 +20,7 @@ db.query(user, (err, res) => {
       return err;
     }
     const order2 = {
-      text: 'INSERT INTO requests(user_id, users_name, users_email, date, status, item, price) VALUES($1, $2, $3, NOW() ,$4, $5, $6)',
+      text: 'INSERT INTO orders(user_id, users_name, users_email, date, status,  eal, price) VALUES($1, $2, $3, NOW() ,$4, $5, $6)',
       values: [res.rows[0].id, 'example', 'example@gmail.com', 'pending', 'egusi soup and semo', '#4500'],
     };
     db.query(order2, (err, res) => {

@@ -1,46 +1,79 @@
-import products from '../helper/products';
+import bcrypt from 'bcrypt-nodejs';
 
-export const getAllOrders = (req, res) => {
-  res.status(200).json({
-    success: true,
-    message: 'A list of all the Orders',
-    orders: products,
+import Validator from 'validatorjs';
+
+import { signUpValidation, loginValidation } from '../helper/validation';
+
+import user from '../models/database';
+
+export const signUp = (req, res) => {
+  const { name, phoneNumber, email, password } = req.body;
+  const validation = new Validator({ name, phoneNumber, password, email }, signUpValidation);
+  validation.passes(() => {
+    const sql = {
+      text: 'SELECT * FROM users WHERE email= $1',
+      values: [email],
+    };
+    user.query(sql, (err, result) => {
+      if (result.rows.length > 0) {
+        return res.status(409).json({
+          errors: {
+            message: ['Email already exists'],
+          },
+        });
+      }
+      bcrypt.hash(password, 10, (err, hash) => {
+        const query = {
+          text:
+            'INSERT INTO users(email, name,Phonenumber, password, admin) VALUES($1, $2, $3, $4, $5 ) RETURNING *',
+          values: [email, name, number, hash, false],
+        };
+        user.query(query, (err, result) => {
+          if (result.rowCount === 1) {
+            tokenify(result, res);
+          }
+        });
+      });
+    });
+  });
+  validation.fails(() => {
+    res.status(400).json(validation.errors);
   });
 };
 
-
-export const getSingleOrders = (req, res) => {
-  const id = parseInt(req.params.id, 10);
-  const currentOrder = products.filter(e => e.id === id)[0];
-  if (!currentOrder) {
-    res.status(404);
-  } else {
-    res.status(200).json({
-      order: currentOrder,
+export const login = (req, res) => {
+  const { email, password } = req.body;
+  const validation = new Validator({ password, email }, loginValidation);
+  validation.passes(() => {
+    const sql = {
+      text: 'SELECT * FROM users WHERE email= $1',
+      values: [email],
+    };
+    user.query(sql, (err, result) => {
+      if (result && result.rows.length === 1) {
+        bcrypt.compare(password, result.rows[0].password, (error, match) => {
+          if (match) {
+            tokenify(result, res);
+          } else {
+            res
+              .status(401)
+              .json({
+                errors: { message: ['Login Authentication failed'] },
+              })
+              .end();
+          }
+        });
+      } else {
+        res
+          .status(401)
+          .json({
+            errors: { message: ['Login Authentication failed'] },
+          })
+          .end();
+      }
     });
-  }
-};
-
-export const makeAnOrder = (req, res) => {
-  const { id, productId, price } = req.body;
-
-  products.push({ id, productId, price });
-  res.status(201).json({
-    message: 'order was created',
-    order: products,
   });
-};
-
-
-export const cancelAnOrder = (req, res) => {
-  const id = parseInt(req.params.id, 10);
-  let currentOrder = products.filter(e => e.id === id)[0];
-  if (!currentOrder) {
-    res.sendStatus(404);
-  } else {
-    currentOrder = products.filter(e => e.id !== id);
-    return res.status(200).json({
-      message: 'deleted product!',
-    });
-  }
+  validation.fails(() => {
+    res.status(400).json(validation.errors);
+  });
 };

@@ -1,16 +1,21 @@
 import {
-  getAllOrders,
-  getSingleOrders,
-  makeAnOrder,
-  cancelAnOrder,
 } from '../controllers/userController';
+
+import {
+  placeOrder,
+  getAllMeals,
+  getAllUserOrders,
+  cancelAnOrder,
+} from '../controllers/orderController';
+
 import validator from '../helper/validateUser';
 
+
 const userRoutes = (app) => {
-  app.get('/api/v1/orders', validator, getAllOrders);
-  app.get('/api/v1/orders/:id', validator, getSingleOrders);
-  app.post('api/v1/orders', validator, makeAnOrder);
-  app.delete('/api/v1/orders/:id', validator, cancelAnOrder);
+  app.post('/api/v1/users', placeOrder);
+  app.get('/api/v1/users', getAllMeals);
+  app.get('/api/v1/users/:userId/orders', getAllUserOrders);
+  app.delete('/api/v1/users/:userId/:OrderId', cancelAnOrder);
 };
 
 export default userRoutes;
