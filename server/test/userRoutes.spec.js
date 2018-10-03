@@ -1,86 +1,142 @@
 import chai from 'chai';
 import { describe, it } from 'mocha';
-// import chaiHttp from 'chai-http';
+ import chaiHttp from 'chai-http';
 
 import app from '../../app';
 
 const Expect = chai.expect;
+ chai.use(chaiHttp);
 
-// chai.use(chaiHttp);
-chai.use(require('chai-http'));
 
-describe('ADMIN ROUTES', () => {
-  // Get all orders
-  it('Should Get All orders', (done) => {
-    chai.request(app)
-      .get('/api/v1/orders')
-      .then((res) => {
-        Expect(res).to.have.status(200);
-        Expect(res).to.be.an('array');
-      });
-    done();
+describe('USER CONTROLLER TESTS', () => {
+  describe('User sign up', () => {
+    it('Should return a token and a status code of 201', (done) => {
+      const newUser = {
+        name: 'John',
+        email: 'example25@gmail.com',
+        phoneNumber: '12345678901',
+        password: '123456',
+      };
+      chai.request(app)
+        .post('/auth/signup')
+        .send(newUser)
+        .end((err, res) => {
+          Expect(err).to.equal(null);
+          Expect(res.statusCode).to.equal(201);
+          Expect(res.body[0]).to.have.property('token');
+          Expect(res.body[0].auth).to.be.equal(true);
+        });
+      return done();
+    });
   });
 
-  // Get Single order
-  it('Should Get All orders', (done) => {
+  it('Should return a status code of 409', (done) => {
+    const newUser = {
+      name: 'John doe',
+      email: 'example@gmail.com',
+      phoneNumber: '12345678901',
+      password: '123456',
+    };
     chai.request(app)
-      .get('/api/v1/orders/:id')
-      .then((res) => {
-        Expect(res).to.have.status(200);
-        Expect(res).to.be.an('array');
+      .post('/auth/signup')
+      .send(newUser)
+      .end((err, res) => {
+        Expect(err).to.equal(null);
+        Expect(res.statusCode).to.equal(409);
       });
-    done();
+    return done();
   });
 
-  // Get -invalid path
-  it('should return not found', (done) => {
+  it('Should return a status code of 500', (done) => {
+    const newUser = {
+      name: 'John doe',
+      email: 12456874,
+      phoneNumber: '12345678901',
+      password: '123456',
+    };
     chai.request(app)
-      .get('/INVALID_PATH')
-      .catch((err) => {
-        Expect(err).to.have.status(404);
+      .post('/auth/signup')
+      .send(newUser)
+      .end((err, res) => {
+        Expect(res.statusCode).to.equal(400);
+        Expect(res.body).to.have.property('errors');
       });
-    done();
+    return done();
   });
 
-  // Post- Add a new order
-  it('should add a new order', (done) => {
-    chai.request(app)
-      .post('/api/v1/orders')
-      .then((res) => {
-        Expect(res).to.have.status(201);
-        Expect(res).to.be.an('array');
-      });
-    done();
-  });
+  describe('POST User Login(/auth/login)', () => {
+    it('Should return a token', (done) => {
+      const User = {
+        email: 'example@gmail.com',
+        password: '123456',
+      };
+      chai.request(app)
+        .post('/auth/login')
+        .send(User)
+        .end((err, res) => {
+          Expect(err).to.equal(null);
+          Expect(res.statusCode).to.equal(200);
+          Expect(res.body[0]).to.be.have.property('token');
+        });
+      done();
+    });
 
-  // Post - Bad Request
-  it('should return bad request', (done) => {
-    chai.request(app)
-      .post('/INVALID_PATH')
-      .catch((err) => {
-        Expect(err).to.have.status(400);
-      });
-    done();
-  });
+    it('Should return a status code of 401 login authentication fail', (done) => {
+      const User = {
+        email: 'example@gmail.com',
+        password: '1234567',
+      };
+      chai.request(app)
+        .post('/auth/login')
+        .send(User)
+        .end((err, res) => {
+          Expect(err).to.equal(null);
+          Expect(res.statusCode).to.equal(401);
+        });
+      return done();
+    });
 
-  // delete an order
-  it('should delete an item', (done) => {
-    chai.request(app)
-      .delete('/api/v1/orders/:id')
-      .then((res) => {
-        Expect(res).to.have.status(200);
-        Expect(res).to.be.an('array');
-      });
-    done();
-  });
+    it('Should return a status code of 401 for incorrect password and email', (done) => {
+      const User = {
+        email: 'example21233@gmail.com',
+        password: '123456',
+      };
+      chai.request(app)
+        .post('/auth/login')
+        .send(User)
+        .end((err, res) => {
+          Expect(res.statusCode).to.equal(401);
+        });
+      return done();
+    });
 
-  // bad delete request
-  it('Should show an error message when order do not exist', (done) => {
-    chai.request(app)
-      .delete('/INVALID_PATH')
-      .catch((err) => {
-        Expect(err).to.have.status(404);
-      });
-    done();
+    it('Should return a status code of 400 for invalid email', (done) => {
+      const User = {
+        email: 12,
+        password: '1234567',
+      };
+      chai.request(app)
+        .post('/auth/login')
+        .send(user)
+        .end((err, res) => {
+          Expect(res.statusCode).to.equal(400);
+        });
+      return done();
+    });
+
+    it('Should return a status code of 400 for invalid password', (done) => {
+      const user = {
+        email: 'example@gmail.com',
+        password: '10',
+      };
+      chai.request(app)
+        .post('/auth/login')
+        .send(user)
+        .end((err, res) => {
+          Expect(err).to.equal(null);
+          Expect(res.statusCode).to.equal(400);
+        });
+      return done();
+    });
   });
 });

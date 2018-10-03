@@ -1,9 +1,13 @@
 import db from '../models/database';
 
+import bcrypt from 'bcrypt-nodejs';
+require('dotenv').config();
+
+const adminPassword = bcrypt.hashSync(process.env.ADMIN_PASSWORD);
 
 const user = {
-  text: 'INSERT INTO users(email, name, password, admin) VALUES($1, $2, $3, $4 ) RETURNING id',
-  values: ['example@gmail.com', 'Example', '$2b$10$x0yAFrtQxs.f83ZKpb4iM.fwQlLAcc81GDhfDuFUimrNEqEDChXha', false],
+  text: 'INSERT INTO users(email, name, phoneNumber, password, admin) VALUES($1, $2, $3, $4 ,$5) RETURNING id',
+  values: ['example@gmail.com', 'Example', '123456', adminPassword , false],
 };
 
 
@@ -11,23 +15,22 @@ db.query(user, (err, res) => {
   if (err) {
     return err;
   }
-  const order = {
-    text: 'INSERT INTO orders(user_id, users_name, users_email, date, status, meal, price) VALUES($1, $2, $3, NOW() ,$4, $5, $6) RETURNING id',
-    values: [res.rows[0].id, 'example', 'example@gmail.com', 'pending', 'fried rice and chicken ', '#5000'],
+  const user2 = {
+    text: 'INSERT INTO users(email, name, phoneNumber, password, admin) VALUES($1, $2, $3, $4, $5) RETURNING id',
+    values: ['examples1@gmail.com', 'example','45666543', adminPassword, false],
   };
-  db.query(order, (err, res) => {
+  db.query(user2, (err, res) => {
     if (err) {
       return err;
     }
-    const order2 = {
-      text: 'INSERT INTO orders(user_id, users_name, users_email, date, status,  eal, price) VALUES($1, $2, $3, NOW() ,$4, $5, $6)',
-      values: [res.rows[0].id, 'example', 'example@gmail.com', 'pending', 'egusi soup and semo', '#4500'],
+    const order = {
+      text: 'INSERT INTO orders( user_id, email, meal, price, option, status) VALUES($1, $2, $3,$4, $5, $6)',
+      values: [res.rows[0].id,'myexample@gmail.com', 'pizza', 3000, 'accept', 'processing'],
     };
-    db.query(order2, (err, res) => {
+    db.query(order, (err, res) => {
       if (err) {
         return err;
       }
-      db.end();
     });
   });
 });

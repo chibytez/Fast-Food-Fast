@@ -6,11 +6,10 @@ db.query('DROP TABLE users', (err, res) => {
   }
 });
 
-db.query('DROP TABLE food_Items', (err, res) => {
+db.query('DROP TABLE meals', (err, res) => {
   if (err) {
     return err;
   }
-  db.end();
 });
 
 db.query('DROP TABLE orders', (err, res) => {

@@ -8,99 +8,128 @@ const Expect = chai.expect;
 
 chai.use(chaiHttp);
 
+export default (req, res, next) => {
+  const header = req.headers.authorization;
+  if (typeof header !== 'undefined') {
+    const bearer = header.split(' ');
+    req.token = bearer[1];
+    next();
+  } else {
+    res.status(403)
+      .json({
+        message: 'Forbidden access',
+      });
+  }
+};
+
 
 describe('ADMIN ROUTES', () => {
-  // Get all orders
-  it('Should Get All orders', (done) => {
+  // it('Should set order as new ', (done) => {
+  //   chai.request(app)
+  //     .put('/api/v1/allOrders/')
+  //     .set({ Authorization: 'Bearer ' + global.tok })
+  //     .end((err, res) => {
+  //       Expect(res.statusCode)
+  //         .to
+  //         .equal(200);
+  //     });
+  //   done();
+  // });
+
+  it('Should process an order', (done) => {
+    chai.request(app)
+      .put('/api/v1/allOrders/:orderId/processing')
+      .set({ Authorization: 'Bearer ' + global.tok })
+      .end((err, res) => {
+        Expect(res.statusCode)
+          .to
+          .equal(200);
+      });
+    done();
+  });
+
+  it('Should cancel an order', (done) => {
+    chai.request(app)
+      .put('/api/v1/allOrders/:orderId/cancelled')
+      .set({ Authorization: 'Bearer ' + global.tok })
+      .end((err, res) => {
+        Expect(res.statusCode)
+          .to
+          .equal(200);
+      });
+    done();
+  });
+
+  it('Should Resolve a request', (done) => {
+    chai.request(app)
+      .put('/api/v1/allOrders/:orderId/complete')
+      .set({ Authorization: 'Bearer ' + global.tok })
+      .end((err, res) => {
+        Expect(res.statusCode)
+          .to
+          .equal(200);
+      });
+    done();
+  });
+
+  it('Should list ALL orders', (done) => {
     chai.request(app)
       .get('/api/v1/allOrders')
-      .then((res) => {
-        Expect(res).to.have.status(200);
-        Expect(res).to.be.an('array');
+      .set({ Authorization: 'Bearer ' + global.tok })
+      .end((err, res) => {
+        Expect(res.statusCode)
+          .to
+          .equal(200);
+        Expect(res)
+          .to
+          .be
+          .an('object');
       });
     done();
   });
 
-  // Get Single order
-  it('Should Get All orders', (done) => {
+  it('Should list ONE order on /allorders/:orderId GET', (done) => {
     chai.request(app)
-      .get('/api/v1/allOrders/:id')
-      .then((res) => {
-        Expect(res).to.have.status(200);
-        Expect(res).to.be.an('array');
+      .get('/api/v1/allOrders/:orderId')
+      .set({ Authorization: 'Bearer ' + global.tok })
+      .end((err, res) => {
+        Expect(res.statusCode)
+          .to
+          .equal(200);
+        Expect(res)
+          .to
+          .be
+          .an('object');
       });
     done();
   });
 
-  // Get -invalid path
-  it('should return not found', (done) => {
-    chai.request(app)
-      .get('/INVALID_PATH')
-      .catch((err) => {
-        Expect(err).to.have.status(404);
-      });
-    done();
-  });
-
-  // Post- Add a new order
-  it('should add a new order', (done) => {
+  it('should add a meal to menu / POST', (done) => {
+    const data1 = {
+      meal: 'pepsi',
+      price: '500',
+      order: 'Lorem ipsum owjjfndfnmnxnfj Lorem ipsum Lorem',
+    };
     chai.request(app)
       .post('/api/v1/allOrders')
-      .then((res) => {
-        Expect(res).to.have.status(201);
-        Expect(res).to.be.an('array');
+      .set({ Authorization: 'Bearer ' + global.token })
+      .send(data1)
+      .end((err, res) => {
+        Expect(res.statusCode)
+          .to
+          .equal(201);
       });
     done();
   });
 
-  // Post - Bad Request
-  it('should return bad request', (done) => {
+  it('should delete an order on /:mealId  DELETE', (done) => {
     chai.request(app)
-      .post('/INVALID_PATH')
-      .catch((err) => {
-        Expect(err).to.have.status(400);
-      });
-    done();
-  });
-
-  // Put Edit An Order
-  it('should edit an order', (done) => {
-    chai.request(app)
-      .put('/api/v1/allOrders/:id')
-      .then((res) => {
-        Expect(res).to.have.status(200);
-        Expect(res).to.be.an('array');
-      });
-    done();
-  });
-
-  // bad put request
-  it('Should show an error message when order do not exist', (done) => {
-    chai.request(app)
-      .put('/INVALID_PATH')
-      .catch((err) => {
-        Expect(err).to.have.status(404);
-      });
-    done();
-  });
-
-  // delete an order
-  it('should delete an item', (done) => {
-    chai.request(app)
-      .delete('/api/v1/allOrders/:id')
-      .then((res) => {
-        Expect(res).to.have.status(200);
-        Expect(res).to.be.an('array');
-      });
-    done();
-  });
-
-  // bad delete request
-  it('Should show an error message when order do not exist', (done) => {
-    chai.request(app)
-      .delete('/INVALID_PATH')
-      .catch((err) => {
-        Expect(err).to.have.status(404);
+      .delete('/api/v1/allOrders/:mealId')
+      .set({ Authorization: 'Bearer ' + global.token })
+      .end((err, res) => {
+        Expect(res.statusCode)
+          .to
+          .equal(200);
       });
     done();
   });
