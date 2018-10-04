@@ -27,7 +27,7 @@ before((done) => {
 describe('USER ORDER CONTROLLER API ENDPOINT', () => {
   it('Should not have access to menu on no token GET', (done) => {
     chai.request(app)
-      .get('/api/v1/users')
+      .get('/api/v1/menu')
       .set('token', token)
       .end((err, res) => {
         Expect(err)
@@ -43,7 +43,7 @@ describe('USER ORDER CONTROLLER API ENDPOINT', () => {
 
   it('Should not have access to menu on invalid token GET', (done) => {
     chai.request(app)
-      .get('/api/v1/users')
+      .get('/api/v1/menu')
       .set('token', token)
       .end((err, res) => {
         Expect(err)
@@ -67,7 +67,7 @@ describe('USER ORDER CONTROLLER API ENDPOINT', () => {
       status: 0,
     };
     chai.request(app)
-      .post('/api/v1/users')
+      .post('/api/v1/order')
       .set('token', token)
       .send(data1)
       .end((err, res) => {
@@ -98,9 +98,9 @@ describe('USER ORDER CONTROLLER API ENDPOINT', () => {
       });
   });
 
-  it('Should list ALL mean menu on /users GET', (done) => {
+  it('Should list ALL meal menu on /users GET', (done) => {
     chai.request(app)
-      .get('/api/v1/users')
+      .get('/api/v1/menu')
       .set('token', token)
       .end((err, res) => {
         Expect(err)

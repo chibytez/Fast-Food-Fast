@@ -1,4 +1,4 @@
-import {validatePlaceOrder} from '../helper/validation';
+import { validatePlaceOrder } from '../helper/validation';
 import {
   placeOrder,
   getAllMeals,
@@ -12,8 +12,8 @@ import userAuth from '../middleware/userAuth';
 
 
 const userRoutes = (app) => {
-  app.post('/api/v1/users', verifyToken, userAuth, validatePlaceOrder, placeOrder);
-  app.get('/api/v1/users', getAllMeals);
+  app.post('/api/v1/order', verifyToken, userAuth, validatePlaceOrder, placeOrder);
+  app.get('/api/v1/menu', getAllMeals);
   app.get('/api/v1/users/:userId/orders', verifyToken, userAuth, getAllUserOrders);
   app.delete('/api/v1/users/:userId/:orderId', verifyToken, userAuth, cancelAnOrder);
 };
