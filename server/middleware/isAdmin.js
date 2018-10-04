@@ -1,5 +1,5 @@
 export default (req, res, next) => {
-  if (req.userInfo.admin) {
+  if (req.headers.token) {
     return next();
   }
   res.status(403)

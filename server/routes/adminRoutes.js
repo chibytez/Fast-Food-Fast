@@ -12,10 +12,10 @@ import verifyToken from '../middleware/verifyToken';
 
 
 const adminRoutes = (app) => {
-  app.get('/api/v1/allOrders',verifyToken, isAdmin, getAllOrders);
-  app.get('/api/v1/allOrders/:orderId',verifyToken, userAuth, isAdmin, getSpecificOrder);
-  app.put('/api/v1/allOrders/:orderId/:action',verifyToken, userAuth, isAdmin, updateOrderStatus);
-  app.delete('/api/v1/allOrders/:mealId', verifyToken, userAuth, isAdmin, deleteMeal);
-  app.post('/api/v1/allOrders', verifyToken, userAuth, isAdmin, addMealMenu);
+  app.get('/api/v1/orders', verifyToken, isAdmin, getAllOrders);
+  app.get('/api/v1/orders/:orderId', verifyToken, userAuth, isAdmin, getSpecificOrder);
+  app.put('/api/v1/orders/:orderId/:action', verifyToken, userAuth, isAdmin, updateOrderStatus);
+  app.delete('/api/v1/orders/:mealId', verifyToken, userAuth, isAdmin, deleteMeal);
+  app.post('/api/v1/orders', addMealMenu);
 };
 export default adminRoutes;

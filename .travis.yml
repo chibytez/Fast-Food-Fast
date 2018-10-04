@@ -14,9 +14,9 @@ before_script:
 script:
   - npm test
 
-# after_script:
-#   - npm run coverage
-#   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+after_script:
+   - npm run coverage
+   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 
 notifications:
   email: false

@@ -4,35 +4,31 @@ import chaiHttp from 'chai-http';
 
 import app from '../../app';
 
+
 const Expect = chai.expect;
 
 chai.use(chaiHttp);
 
-// let token = null;
+let token;
+before((done) => {
+  chai.request(app)
+    .post('/api/v1/auth/login')
+    .send({
+      email: 'example@gmail.com',
+      password: 'chibuikeadmin',
+    })
+    .end((err, res) => {
+      const jwttoken = res.body.token;
+      token = jwttoken;
+      done();
+    });
+});
 
 describe('USER ORDER CONTROLLER API ENDPOINT', () => {
-  let toker = '';
-  before(async (done) => {
-    console.log('before');
-    
-    const request = await chai.request(app)
-      .post('auth/login')
-      .send({
-        email: 'aniaku2@gmail.com',
-        password: 'chibyke',
-      })
-      .then((err, res) => {
-        token = res.body.token;
-        console.log('token', token);
-        done();
-      }).catch(function (err) {
-        console.log(err);
-        
-     });
-  });
   it('Should not have access to menu on no token GET', (done) => {
     chai.request(app)
       .get('/api/v1/users')
+      .set('token', token)
       .end((err, res) => {
         Expect(err)
           .to
@@ -48,7 +44,7 @@ describe('USER ORDER CONTROLLER API ENDPOINT', () => {
   it('Should not have access to menu on invalid token GET', (done) => {
     chai.request(app)
       .get('/api/v1/users')
-      .set({ Authorization: 'Bearer diiiooihweohfowehfohwhioo' })
+      .set('token', token)
       .end((err, res) => {
         Expect(err)
           .to
@@ -60,31 +56,32 @@ describe('USER ORDER CONTROLLER API ENDPOINT', () => {
         done();
       });
   });
+
   it('should place a SINGLE order / POST', (done) => {
     const data1 = {
-      user_id:1,
-       email:'fgsfdfdf@getMaxListeners.com',
-        meal:'pizza',
-         price:'4500',
-          option:0,
-           status:0
+      user_id: 1,
+      email: 'fgsfdfdf@getMaxListeners.com',
+      meal: 'pizza',
+      price: '4500',
+      option: 0,
+      status: 0,
     };
     chai.request(app)
       .post('/api/v1/users')
-      .set({ Authorization: `Bearer ${  global.token}` })
+      .set('token', token)
       .send(data1)
       .end((err, res) => {
         Expect(res.statusCode)
           .to
           .equal(201);
+        done();
       });
-    done();
   });
 
   it('Should list ALL order of a particular user  GET', (done) => {
     chai.request(app)
-      .get('/api/v1/users/:userId/orders')
-      .set({ Authorization: `Bearer ${  global.token}` })
+      .get('/api/v1/users/1/orders')
+      .set('token', token)
       .end((err, res) => {
         Expect(err)
           .to
@@ -104,7 +101,7 @@ describe('USER ORDER CONTROLLER API ENDPOINT', () => {
   it('Should list ALL mean menu on /users GET', (done) => {
     chai.request(app)
       .get('/api/v1/users')
-      .set({ Authorization: `Bearer ${  global.token}` })
+      .set('token', token)
       .end((err, res) => {
         Expect(err)
           .to
@@ -123,25 +120,25 @@ describe('USER ORDER CONTROLLER API ENDPOINT', () => {
 
   it('should get an error when an order is not found on /orderId  DELETE', (done) => {
     chai.request(app)
-      .delete('/api/v1/users/:userId/1235')
-      .set({ Authorization: `Bearer ${  global.token}` })
+      .delete('/api/v1/users/1/1235')
+      .set('token', token)
       .end((err, res) => {
         Expect(res.statusCode)
           .to
           .equal(404);
+        done();
       });
-    done();
   });
 
   it('should cancel an order on /orderId  DELETE', (done) => {
     chai.request(app)
-      .delete('/api/v1/users/:userId/:orderId')
-      .set({ Authorization: `Bearer ${ global.token}` })
+      .delete('/api/v1/users/1/1')
+      .set('token', token)
       .end((err, res) => {
         Expect(res.statusCode)
           .to
           .equal(200);
+        done();
       });
-    done();
   });
 });

@@ -1,8 +1,7 @@
 export default (req, res, next) => {
-  const header = req.headers.authorization;
+  const header = req.headers.token;
   if (typeof header !== 'undefined') {
-    const bearer = header.split(' ');
-    req.token = bearer[1];
+    req.token = header;
     next();
   } else {
     res.status(403)

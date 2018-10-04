@@ -1,5 +1,5 @@
 import db from '../models/database';
-import { dbResults, restriction } from '../helper/utilities';
+import { dbResults } from '../helper/utilities';
 
 export const getAllOrders = (req, res) => {
   const sql = {
@@ -17,30 +17,30 @@ export const getSpecificOrder = (req, res) => {
   dbResults(sql, req.userInfo, res);
 };
 
+
 export const updateOrderStatus = (req, res) => {
   const id = parseInt(req.params.orderId, 10);
   const { action } = req.params;
   let sql = '';
   switch (action) {
-   
     case 'processing':
-      sql = `UPDATE orders SET status=${1} WHERE id=${id} RETURNING *`;
+      sql = `UPDATE orders SET status=${1} WHERE id = ${id} RETURNING *`;
       break;
     case 'cancelled':
-      sql = `UPDATE orders SET status=${2} WHERE id=${id} RETURNING *`;
+      sql = `UPDATE orders SET status=${2} WHERE id = ${id} RETURNING *`;
       break;
     case 'complete':
-      sql = `UPDATE orders SET status=${3} WHERE id=${id} RETURNING *`;
+      sql = `UPDATE orders SET status=${3} WHERE id = ${id} RETURNING *`;
       break;
     default:
-      sql = `UPDATE orders SET status=${0} WHERE id=${id} RETURNING *`;
+      sql = `UPDATE orders SET status=${0} WHERE id = ${id} RETURNING *`;
       break;
   }
   dbResults(sql, req.userInfo, res);
 };
 
 export const addMealMenu = (req, res) => {
-  const { meal_id, meal, price} = req.body;
+  const { meal_id, meal, price } = req.body;
   const query = {
     text: 'INSERT INTO meals(meal_id, meal, price) VALUES($1, $2, $3)',
     values: [meal_id, meal, price],
@@ -53,18 +53,11 @@ export const addMealMenu = (req, res) => {
         meals: meals.rows,
       });
     }).catch(error => res.status(500).json({ message: error.message }));
-  // dbResults(sql, req.userInfo, res);
 };
 
 export const deleteMeal = (req, res) => {
   const id = parseInt(req.params.mealId, 10);
   db.query('SELECT status FROM meals WHERE meal_id=$1', [id], (err, response) => {
-    // if (restriction(response)) {
-    //   return res.status(409)
-    //     .json({
-    //       error: 'Request already approved',
-    //     });
-    // }
     db.query('DELETE FROM meals WHERE meal_id=$1', [id], (err, result) => {
       if (result.rowCount === 0) {
         return res.status(404)

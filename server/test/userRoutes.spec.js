@@ -1,6 +1,6 @@
 import chai from 'chai';
 import { describe, it } from 'mocha';
- import chaiHttp from 'chai-http';
+import chaiHttp from 'chai-http';
 
 import app from '../../app';
 
@@ -15,18 +15,19 @@ describe('USER CONTROLLER TESTS', () => {
         name: 'John',
         email: 'example25@gmail.com',
         phoneNumber: '12345678901',
-        password: '123456',
+        password: 'chibuikeadmin',
       };
       chai.request(app)
-        .post('/auth/signup')
+        .post('/api/v1/auth/signup')
         .send(newUser)
         .end((err, res) => {
           Expect(err).to.equal(null);
           Expect(res.statusCode).to.equal(201);
           Expect(res.body[0]).to.have.property('token');
           Expect(res.body[0].auth).to.be.equal(true);
+          done();
         });
-      return done();
+      
     });
   });
 
@@ -38,13 +39,13 @@ describe('USER CONTROLLER TESTS', () => {
       password: '123456',
     };
     chai.request(app)
-      .post('/auth/signup')
+      .post('/api/v1/auth/signup')
       .send(newUser)
       .end((err, res) => {
         Expect(err).to.equal(null);
         Expect(res.statusCode).to.equal(409);
+        done();
       });
-    return done();
   });
 
   it('Should return a status code of 500', (done) => {
@@ -55,13 +56,13 @@ describe('USER CONTROLLER TESTS', () => {
       password: '123456',
     };
     chai.request(app)
-      .post('/auth/signup')
+      .post('/api/v1/auth/signup')
       .send(newUser)
       .end((err, res) => {
         Expect(res.statusCode).to.equal(400);
         Expect(res.body).to.have.property('errors');
+        done();
       });
-    return done();
   });
 
   describe('POST User Login(/auth/login)', () => {
@@ -71,14 +72,14 @@ describe('USER CONTROLLER TESTS', () => {
         password: '123456',
       };
       chai.request(app)
-        .post('/auth/login')
+        .post('/api/v1/auth/login')
         .send(User)
         .end((err, res) => {
           Expect(err).to.equal(null);
           Expect(res.statusCode).to.equal(200);
           Expect(res.body[0]).to.be.have.property('token');
+          done();
         });
-      done();
     });
 
     it('Should return a status code of 401 login authentication fail', (done) => {
@@ -87,13 +88,13 @@ describe('USER CONTROLLER TESTS', () => {
         password: '1234567',
       };
       chai.request(app)
-        .post('/auth/login')
+        .post('/api/v1/auth/login')
         .send(User)
         .end((err, res) => {
           Expect(err).to.equal(null);
           Expect(res.statusCode).to.equal(401);
+          done();
         });
-      return done();
     });
 
     it('Should return a status code of 401 for incorrect password and email', (done) => {
@@ -102,26 +103,26 @@ describe('USER CONTROLLER TESTS', () => {
         password: '123456',
       };
       chai.request(app)
-        .post('/auth/login')
+        .post('/api/v1/auth/login')
         .send(User)
         .end((err, res) => {
           Expect(res.statusCode).to.equal(401);
+          done();
         });
-      return done();
     });
 
     it('Should return a status code of 400 for invalid email', (done) => {
-      const User = {
+      const user = {
         email: 12,
         password: '1234567',
       };
       chai.request(app)
-        .post('/auth/login')
+        .post('/api/v1/auth/login')
         .send(user)
         .end((err, res) => {
           Expect(res.statusCode).to.equal(400);
+          done();
         });
-      return done();
     });
 
     it('Should return a status code of 400 for invalid password', (done) => {
@@ -130,13 +131,13 @@ describe('USER CONTROLLER TESTS', () => {
         password: '10',
       };
       chai.request(app)
-        .post('/auth/login')
+        .post('/api/v1/auth/login')
         .send(user)
         .end((err, res) => {
           Expect(err).to.equal(null);
           Expect(res.statusCode).to.equal(400);
+          done();
         });
-      return done();
     });
   });
 });
