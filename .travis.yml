@@ -1,22 +1,21 @@
 language: node_js
 node_js:
-  - "7"
+  - "10"
 install:
   - npm install
 services:
   - postgresql
+
+script:
+  - npm test
+  -npm run coverage
 
 before_script:
   - psql -c 'create database travis_test;' -U postgres
   
   - ./cc-test-reporter before-build
 
-script:
-  - npm test
 
 after_script:
    - npm run coverage
    - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
-
-notifications:
-  email: false
