@@ -4,7 +4,7 @@
   "description": "fast food fast app",
   "main": "app.js",
   "scripts": {
-    "test": " nyc --reporter=text --reporter=lcov mocha ./server/test/**.spec.js --require babel-register --exit",
+    "test": "nyc --reporter=text --reporter=lcov mocha ./server/test/**.js --require babel-register --exit",
     "start": "nodemon app.js --exec babel-node --presets es2015",
     "createTable": " node -r babel-register server/migration/createTable.js",
     "dropTable": " node -r babel-register server/migration/dropTable.js",
@@ -13,7 +13,6 @@
     "migration": "npm run dropTable && npm run createTable",
     "seeder": "npm run userSeed && npm run adminSeed",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "pretest": "npm run migration && npm run seeder",
     "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix"
   },
@@ -28,6 +27,7 @@
     "chai-http": "^4.2.0",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
+    "jsonwebtoken": "^8.3.0",
     "mocha": "^5.2.0",
     "mocha-lcov-reporter": "^1.3.0",
     "morgan": "^1.9.0",
@@ -40,7 +40,7 @@
     "winston": "^3.1.0"
   },
   "devDependencies": {
-    "eslint": "^5.6.0",
+    "eslint": "^5.6.1",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0"
   }

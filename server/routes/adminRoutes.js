@@ -1,4 +1,4 @@
-
+import isAdmin from '../middleware/isAdmin';
 import {
   getAllOrders,
   getSpecificOrder,
@@ -6,14 +6,16 @@ import {
   addMealMenu,
   deleteMeal,
 } from '../controllers/adminController';
-import validate from '../helper/validateAdmin';
+
+import userAuth from '../middleware/userAuth';
+import verifyToken from '../middleware/verifyToken';
 
 
 const adminRoutes = (app) => {
-  app.get('/api/v1/allOrders', getAllOrders);
-  app.get('/api/v1/allOrders/:id', getSpecificOrder);
-  app.put('/api/v1/allOrders/:id', validate, updateOrderStatus);
-  app.delete('/api/v1/allOrders/:id', validate, deleteMeal);
-  app.post('/api/v1/allOrders', validate, addMealMenu);
+  app.get('/api/v1/orders', verifyToken, isAdmin, getAllOrders);
+  app.get('/api/v1/orders/:orderId', verifyToken, userAuth, isAdmin, getSpecificOrder);
+  app.put('/api/v1/orders/:orderId/:action', verifyToken, userAuth, isAdmin, updateOrderStatus);
+  app.delete('/api/v1/orders/:mealId', verifyToken, userAuth, isAdmin, deleteMeal);
+  app.post('/api/v1/orders', addMealMenu);
 };
 export default adminRoutes;
