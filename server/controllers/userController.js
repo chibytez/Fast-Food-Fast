@@ -76,7 +76,7 @@ export const login = (req, res) => {
       text: 'SELECT * FROM users WHERE email= $1',
       values: [email],
     };
-    user.query(sql, (err, result) => {
+    user.query(sql)
       if (result && result.rows.length === 1) {
         bcrypt.compare(password, result.rows[0].password, (error, match) => {
           if (match) {

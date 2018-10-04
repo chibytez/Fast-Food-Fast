@@ -5,7 +5,7 @@ import chaiHttp from 'chai-http';
 import app from '../../app';
 
 const Expect = chai.expect;
- chai.use(chaiHttp);
+chai.use(chaiHttp);
 
 
 describe('USER CONTROLLER TESTS', () => {

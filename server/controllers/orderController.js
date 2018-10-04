@@ -2,7 +2,7 @@ import db from '../models/database';
 import { dbResults } from '../helper/utilities';
 
 
-export const placeOrder = (req,res) => {
+export const placeOrder = (req, res) => {
   const {user_id, email, meal, price, option, status } = req.body;
   const query = {
     text: 'INSERT INTO orders ( user_id, email, meal, price, option, status) VALUES( $1, $2, $3, $4, $5, $6) RETURNING id, user_id, email, meal,price ,option, status',
@@ -31,31 +31,38 @@ export const getAllUserOrders = (req, res) => {
 };
 
 export const getAllMeals = (req, res) => {
-  const sql = 
-     'SELECT * FROM meals';
-     db.query(sql, (err, result) => {
-     return  res.status(200)
-      .json({
-        status: true,
-        message: result.rows,
-      });
-     });
+  const sql = 'SELECT * FROM meals';
+  db.query(sql)
+    .then((meal) => {
+      return res.status(200)
+        .json({
+          success: true,
+          message: 'All meals',
+          meal: meal.rows,
+        });
+    }).catch((error) => {
+      return error;
+    });
 };
 
 export const cancelAnOrder = (req, res) => {
   const id = parseInt(req.params.orderId, 10);
-  db.query('SELECT status FROM orders WHERE id=$1', [id], (err, response) => {
-    db.query('DELETE FROM orders WHERE id=$1', [id], (err, result) => {  
+  db.query('SELECT status FROM orders WHERE id=$1', [id],
+    db.query('DELETE FROM orders WHERE id=$1', [id])
+    .then((result) => {
       if (result.rowCount === 0) {
         return res.status(404)
           .json({
             message: 'order Not found',
           });
-      }
+      };
       res.status(200)
         .json({
           message: 'order deleted successfully',
         });
-    });
-  });
+    })
+    .catch(error) => {
+      res.status(500)
+      .json({message: error.message})
+      )};
 };

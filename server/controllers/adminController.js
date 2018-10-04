@@ -57,8 +57,9 @@ export const addMealMenu = (req, res) => {
 
 export const deleteMeal = (req, res) => {
   const id = parseInt(req.params.mealId, 10);
-  db.query('SELECT status FROM meals WHERE meal_id=$1', [id], (err, response) => {
-    db.query('DELETE FROM meals WHERE meal_id=$1', [id], (err, result) => {
+  db.query('SELECT status FROM meals WHERE meal_id=$1', [id], 
+    db.query('DELETE FROM meals WHERE meal_id=$1', [id])
+    .then((result) => {
       if (result.rowCount === 0) {
         return res.status(404)
           .json({
@@ -69,6 +70,6 @@ export const deleteMeal = (req, res) => {
         .json({
           message: 'meal deleted successfully',
         });
-    });
-  });
+      })
+      .catch(error=> res.status(500).json({message: error.message}));
 };
