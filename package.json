@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "nyc --reporter=text --reporter=lcov mocha ./server/test/**.js --require babel-register --exit",
-    "start": "nodemon app.js --exec babel-node --presets es2015",
+    "start": "babel-node app.js --exec  --presets es2015",
+    "start:dev": "nodemon  app.js --exec babel-node --presets es2015",
     "createTable": " node -r babel-register server/migration/createTable.js",
     "dropTable": " node -r babel-register server/migration/dropTable.js",
     "userSeed": " node -r babel-register server/migration/user.seed.js",
