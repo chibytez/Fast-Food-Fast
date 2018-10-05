@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt-nodejs';
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 import Validator from 'validatorjs';
@@ -49,21 +49,24 @@ export const signUp = (req, res) => {
           },
         });
       }
-      bcrypt.hash(password, null, null, (err, hash) => {
-        const query = {
-          text:
-            'INSERT INTO users(email, name,phoneNumber, password, admin) VALUES($1, $2, $3, $4, $5 ) RETURNING email, name,phoneNumber, admin',
-          values: [email, name, phoneNumber, hash, false],
-        };
-        user.query(query)
-          .then(data => jwt.sign({ user: data.rows[0].id }, process.env.JWT_KEY, (err, token) => res.status(201).json({
-            success: true,
-            message: 'user registration was successful',
-            name: data.rows[0].name,
-            data: data.rows[0],
-            token,
-          })))
-          .catch(error => res.status(500).json({ message: error.message }));
+      bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(password, salt, (err, hash) => {
+          const query = {
+            text:
+              'INSERT INTO users(email, name,phoneNumber, password, admin) VALUES($1, $2, $3, $4, $5 ) RETURNING email, name,phoneNumber, admin',
+            values: [email, name, phoneNumber, hash, false],
+          };
+          user.query(query)
+            .then(data => jwt.sign({ user: data.rows[0].id }, process.env.JWT_KEY, (err, token) => res.status(201).json({
+              success: true,
+              message: 'user registration was successful',
+              name: data.rows[0].name,
+              data: data.rows[0],
+              token,
+            })))
+            .catch(error => res.status(500).json({ message: error.message }));
+        });
+
       });
     });
   });
