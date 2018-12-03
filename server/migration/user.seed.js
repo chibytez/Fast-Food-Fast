@@ -24,7 +24,7 @@ db.query(user, (err, res) => {
       return err;
     }
     const order = {
-      text: 'INSERT INTO orders( user_id, meal, price, option, status) VALUES($1, $2, $3,$4, $5, $6)',
+      text: 'INSERT INTO orders( id, meal, price, option, status) VALUES($1, $2, $3,$4, $5, $6)',
       values: [res.rows[0].id, 'pizza', 3000, 'accept', 'processing'],
     };
     db.query(order, (err, res) => {

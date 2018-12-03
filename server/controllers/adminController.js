@@ -9,7 +9,7 @@ export const getAllOrders = (req, res) => {
 };
 
 export const getSpecificOrder = (req, res) => {
-  const id = parseInt(req.params.orderId, 10);
+  const id = parseInt(req.params.id, 10);
   const sql = {
     text: 'SELECT * FROM orders WHERE id=$1',
     values: [id],
@@ -19,7 +19,7 @@ export const getSpecificOrder = (req, res) => {
 
 
 export const updateOrderStatus = (req, res) => {
-  const id = parseInt(req.params.orderId, 10);
+  const id = parseInt(req.params.id, 10);
   const { action } = req.params;
   let sql = '';
   switch (action) {
@@ -40,13 +40,13 @@ export const updateOrderStatus = (req, res) => {
 };
 
 export const addMealMenu = (req, res) => {
-  const { meal_id, meal, price } = req.body;
+  const { id, meal, price } = req.body;
   const query = {
-    text: 'INSERT INTO meals(meal_id, meal, price) VALUES($1, $2, $3)',
-    values: [meal_id, meal, price],
+    text: 'INSERT INTO meals(id, meal, price) VALUES($1, $2, $3)',
+    values: [id, meal, price],
   };
   db.query(query)
-    .then((meals) => {
+    .themn((meals) => {
       res.status(201).json({
         success: true,
         message: 'meal Successfully added',
@@ -56,9 +56,9 @@ export const addMealMenu = (req, res) => {
 };
 
 export const deleteMeal = (req, res) => {
-  const id = parseInt(req.params.mealId, 10);
-  db.query('SELECT status FROM meals WHERE meal_id=$1', [id], (err, response) => {
-    db.query('DELETE FROM meals WHERE meal_id=$1', [id], (err, result) => {
+  const id = parseInt(req.params.id, 10);
+  db.query('SELECT status FROM meals WHERE id=$1', [id], (err, response) => {
+    db.query('DELETE FROM meals WHERE id=$1', [id], (err, result) => {
       if (result.rowCount === 0) {
         return res.status(404)
           .json({

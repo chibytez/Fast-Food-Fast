@@ -4,11 +4,11 @@ import { dbResults } from '../helper/utilities';
 
 export const placeOrder = (req, res) => {
   const { 
-user_id, email, meal, price, option, status 
+id, email, meal, price, option, status 
 } = req.body;
   const query = {
-    text: 'INSERT INTO orders ( user_id, meal, price, option, status) VALUES( $1, $2, $3, $4, $5) RETURNING id, user_id,meal,price ,option, status',
-    values: [user_id, meal, price, option, status],
+    text: 'INSERT INTO orders ( id, meal, price, option, status) VALUES( $1, $2, $3, $4, $5) RETURNING id, user_id,meal,price ,option, status',
+    values: [id, meal, price, option, status],
   };
   db.query(query)
     .then((order) => res.status(201).json({
@@ -20,10 +20,10 @@ user_id, email, meal, price, option, status
 };
 
 export const getAllUserOrders = (req, res) => {
-  const userId = req.userInfo;
+  const id = req.userInfo;
   const sql = {
-    text: 'SELECT * FROM orders WHERE user_id=$1',
-    values: [userId],
+    text: 'SELECT * FROM orders WHERE id=$1',
+    values: [id],
   };
   dbResults(sql, req.userInfo, res);
 };
@@ -38,7 +38,7 @@ export const getAllMeals = (req, res) => {
 };
 
 export const cancelAnOrder = (req, res) => {
-  const id = parseInt(req.params.orderId, 10);
+  const id = parseInt(req.params.id, 10);
   db.query('SELECT status FROM orders WHERE id=$1', [id], (err, response) => {
     db.query('DELETE FROM orders WHERE id=$1', [id], (err, result) => {
       if (result.rowCount === 0) {

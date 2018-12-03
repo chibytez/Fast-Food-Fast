@@ -1,7 +1,7 @@
 import validator from 'validatorjs';
 
 export const orderValidation = {
-  user_id: 'required|min:1',
+  id: 'required|min:1',
   meal: 'required|min:4',
   price: 'required|min:3',
   option: 'required|min:1',
@@ -21,8 +21,8 @@ export const loginValidation = {
 
 export const validatePlaceOrder = (req, res, next) => {
   const {
- user_id, meal, price, option, status } = req.body;
-  const validation = new validator ({ user_id, meal, price, option, status }, orderValidation);
+ id, meal, price, option, status } = req.body;
+  const validation = new validator ({ id, meal, price, option, status }, orderValidation);
   validation.setAttributeNames({ meal: 'meal' });
   if (validation.fails()) {
     res.status(400)
